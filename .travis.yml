@@ -1,3 +1,7 @@
 language: python
 
-script: pytest
+install: true
+script: py.test
+
+notifications:
+  slack: newcastle-cloudcdt:gQYQPWnzu9D2CDhV2yEzrOaS

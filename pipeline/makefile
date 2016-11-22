@@ -10,7 +10,7 @@ dataset: $(GET_DATASET_SRC)
 .PHONY: categorise
 categorise: dataset $(CATEGORISE_SRC) $(RAW_CSV)
 	$(info Categorising items)
-	@$(CATEGORIZE_EXE)	
+	@$(CATEGORISE_EXE)	
 
 # Extract Relevant information
 .PHONY: extract

@@ -2,7 +2,7 @@ language: python
 
 install: true
 
-script: make -C pipeline
+script: make -C pipeline categorise
 
 notifications:
   slack: newcastle-cloudcdt:gQYQPWnzu9D2CDhV2yEzrOaS

@@ -1,7 +1,12 @@
 .PHONY: dataset
 dataset:
-	bash dataset/dl_dataset.sh dataset/dataset.csv 
+	bash $@/dl_dataset.sh $@/$@.csv 
+
+.PHONY: categorise
+categorise: dataset
+	bash $@/$@.sh $</$<.csv $@/$@.csv
 
 
+.PHONY: clean
 clean:
 	rm -f *.csv

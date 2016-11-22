@@ -1,7 +1,8 @@
 language: python
 
 install: true
-script: py.test
+
+script: make -C pipeline
 
 notifications:
   slack: newcastle-cloudcdt:gQYQPWnzu9D2CDhV2yEzrOaS

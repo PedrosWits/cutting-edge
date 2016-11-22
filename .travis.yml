@@ -1,8 +1,8 @@
 language: python
 
-install: true
+install: pip install -r .travis.requirements.txt
 
-script: make -C pipeline categorise
+script: make -C pipeline buildDB
 
 notifications:
   slack: newcastle-cloudcdt:gQYQPWnzu9D2CDhV2yEzrOaS

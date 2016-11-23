@@ -26,7 +26,7 @@ ADDITIONAL_EXE = bash $(ADDITIONAL_SRC) $(ADDITIONAL_CSV)
 
 # 4. Merge extracted and additional files
 MERGE_SRC = merge/mergeFiles.sh
-MERGE_EXE = bash $(MERGE_SRC) $(EXTRACTED_CSV) $(ADDITIONAL_CSV) $(MERGED_CSV)
+MERGE_EXE = bash $(MERGE_SRC) $(MERGED_CSV) $(EXTRACTED_CSV) $(ADDITIONAL_CSV) 
 
 # 5. Remove duplicates
 UNIQUE_SRC = unique/removeDuplicates.sh

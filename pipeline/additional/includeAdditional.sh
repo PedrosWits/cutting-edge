@@ -16,7 +16,7 @@ for filename in $(ls -p $txtdir | grep -v /); do
     while read -r line || [ -n "$line" ]; do
         word=$(echo "$line" | cut -d '=' -f 2)
         printf '\"%q\",' "$word" >> "$outfile"
-    done <$(PWD)/$txtdir/$filename
+    done <"$(PWD)/$txtdir/$filename"
     echo >> $outfile
 done
 

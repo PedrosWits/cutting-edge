@@ -38,7 +38,7 @@ INSERT_DATABASE_EXE = python $(INSERT_DATABASE_SRC) $(UNIQUE_CSV) $(DATABASE_DB)
 
 # 7. Querying the database
 QUERY_DATABASE_SRC = queryDB/queries.py
-QUERY_DATABASE_EXE = python $(QUERY_DATABASE_SRC) 
+QUERY_DATABASE_EXE = python $(QUERY_DATABASE_SRC) $(DATABASE_DB)
 
 # 8. Linking images to database
 PARSE_APACHE_SRC = linking/parseApache.sh

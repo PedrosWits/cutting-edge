@@ -1,0 +1,119 @@
+\documentclass{article}
+
+
+\usepackage[margin=1in]{geometry}
+\usepackage{fancyhdr}
+\usepackage{enumerate}
+\usepackage{float}
+\usepackage{listings}
+\usepackage{listings}
+
+\setlength\parindent{0pt}
+
+\renewcommand{\topfraction}{0.9}
+\pagestyle{fancy}
+\fancyhf{}
+\rhead{Pedro Pinto da Silva, Alex Kell}
+\lhead{Project 2}
+\rfoot{Page \thepage}
+
+
+\begin{document}
+
+\title{Project 2 \\ CSC8622}
+\author{Pedro Pinto da Silva, Alex Kell}
+
+\maketitle
+
+\section*{Design and Implementation Report}
+
+
+\subsection*{Categorisation of Artefacts in the CSV}
+
+The CSV file provided did not store categories for each item in the relevant row.  They were instead present in their own row at the beginning of each section. This had certain draw backs, such as not retaining the information when querying the data, as ordering may be lost.\\
+
+AWK was used to do this, which is a programming language built for the purpose of extracting and transforming text.
+
+The code use is shown below:\\
+
+\begin{lstlisting}[language = Bash]
+awk -F "," '/,,,,,,,,,/{flag=1; a=$1; next} BEGIN{OFS= ","} 
+	{$1=a FS $ (1) ; print} ; /,,,,,,,,,/{flag=0} ' $1 > $2
+sed -i.old '1s;^;Category;' $2
+\end{lstlisting}
+
+The code works as follows: 
+\begin{enumerate}
+	\item  The \lstinline|awk| function refers to the Unix program which runs scripts in the AWK programming language
+	\item As the text file we were using was seperated by commas (CSV), the \lstinline|-F ","| function was used to specify how each field was split
+	\item \lstinline|/,,,,,,,,,/| is a regular expression which searches for rows with a  
+	series of empty columns
+	\item\lstinline|{flag=1; a=$1; next}| When the regular expression is found, the flag is set to (ON), and the first entry of the field (Category name) is saved as \lstinline|"a"|. This value of \lstinline|"a"| is then inserted into the first columns of all the rows until the next row with a single entry in the first row is found.
+	\item The \lstinline|sed -i.old| function names the newly created category.
+\end{enumerate}
+
+The problem with this code, is that it expects the data format to be provided in the same way each time. ie. With the category in its own row, and no entries in the subsequent elements. If an entire category is removed this would not work.
+
+\subsection*{Extraction of useful columns/fields}
+
+This section returned only the first 5 columns, which were necessary for analysis. Whilst this problem seemed trivial at first, it was not an easy task with awk due to some fields containing commas. For instance addresses were returned as "Heworth, Gateshead". AWK would interpret "Heworth and Gateshead" as seperate fields, as opposed to a single field. \\
+
+The chosen solution was to use csvkit. A suite of utilities created specifically for working with CSV files. This program automatically ignored commas which were found in between quotation marks. The code when using csvkit is simple and shown below.
+
+\begin{lstlisting}
+csvcut --columns 2,3,1,4,5 $1 > $2
+\end{lstlisting}
+
+An assumption made here was that the columns would remain in the same order, and that strings which contained commas would be encapsulated by quotation marks.
+
+
+\subsection*{Including information from alternative sources}
+
+This section was concerned with the use of additional text sources, and formatting these in a way so that they could be integrated with the main database. Bash was used to do this. \\
+
+This was done by reading the file, and using an \lstinline|"="| as a delimiter. The file was iterated through, extracting the second field. This second field, which contained the valuable information was then printed to the file, in the correct order with a comma as a delimiter. The same format as the main CSV file.
+
+\subsection*{Merging sources of data}
+
+This section concerns itself with the merging of the different data sources which we now contained. This was done through the use of bash.\\
+
+The columns names were hard coded and printed in the first line. A for loop was then created. This for loop used each of the files parsed as arguments to iterate through. All the lines of each of the files was then printed and saved as a file.
+
+\subsection*{Removal of duplicate data}
+
+This section concerned itself with the removal of duplicate items within the database. \\
+
+To do this, awk was used once again. \\
+
+First of all quotation marks are removed.
+
+The awk internal function \lstinline|(seen)| function evaluates to true if an element has not been seen before. It is therefore evaluated on the entire first column. At values that it is true, the column is printed.
+
+\subsection*{Importing dataset into a database}
+
+This section concerns itself with the creation of a database, and insertion of the data. Python was used to do this due to the packages it contains to do this.\\
+
+The first sections of the code take the arguments of database name to be created, and CSV file to be imported. Deleting the existing database if one with the same name exists.\\
+
+The database is created using sqlite3 package commands. Name each of the columns. The delimiter is set to a comma, and each of the rows are printed in their respective columns. Once this has been done for the entire length of the CSV file, the connection is closed and database is saved.
+
+\subsection*{Database Queries}
+
+This section concerns itself with the creation of a few queries to return certain values from the created database. \\
+
+The sqlite3 package for python was used once more here. SQL language was used for each of these queries, and the results were written to a file.
+
+\subsection*{Linking high-resolution images to the database}
+
+\subsection*{Pipeline wrapper}
+
+This section concerns itself with the creation of a pipeline wrapper. To do this Make was used. \\
+
+For this, each of the parts previously mentioned had their own section in the make file, where the output of the previous section was used to create the output of the current system, and forwarded to the next section and so forth. \\
+
+Once all of the files had been created, all of the intermediate files were deleted, returning only the original file.
+
+
+\subsection*{Wildcard Exercise}
+
+\end{document}

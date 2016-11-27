@@ -2,7 +2,7 @@ language: python
 
 install: pip install -r .travis.requirements.txt
 
-script: make -C pipeline buildDB
+script: make -C pipeline queryDB
 
 notifications:
   slack: newcastle-cloudcdt:gQYQPWnzu9D2CDhV2yEzrOaS

@@ -116,4 +116,11 @@ Once all of the files had been created, all of the intermediate files were delet
 
 \subsection*{Wildcard Exercise}
 
+To trigger a test sequence everytime we pushed onto the remote repository, we decided to use Continuous Integration, namely a platform called Travis CI. Travis CI has direct integration with Github: you can login using your account and activate directly which repositories use continuous integration and which don't. We set up travis to run our pipeline (until the point at which he was implemented) everytime there was a push into the Github repo. Setting up travis yaml configuration file was straightforward. We quickly specified the target language (bash, python), test script, dependencies and even set up travis no notify us about the result of our builds via slack and email. In overall, I think we had a productive first contact with continuous integration and got the grip of the importance that underlies the concept. We also aimed to build a customized docker container for our pipeline but we failed to do so due to lack or mismanagement of time.
+
+\subsection*{What we missed and could have improved}
+Our work fails in the aspect of test-development, as we at times relied in manual inspection of output files to verify the success of the operation. It was not easy to set up well-defined tests for each of the stages of the pipeline because testing scripts like the ones we developed would required extensive test-suites for which there was no time to work on. We could have developed small tests and assertions when we knew what the outcome of a given stage of the pipeline was, e.g. number of lines in output csv file. However, these would become irrelevant in the presence of a very large dataset for which human introspection would not be possible.\\
+
+Other aspects could have been improved too, such as writing a more generic makefile and improve on the directory structure of the package.
+
 \end{document}

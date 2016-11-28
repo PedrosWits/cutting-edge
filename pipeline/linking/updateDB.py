@@ -7,7 +7,7 @@ def createTableImageUrls(cursor, urls):
     cursor.execute("CREATE TABLE Images (accession text, url text)")    
     for url in urls:
 	accession = url.split('-')[0]
-        cursor.execute("INSERT INTO Artefacts VALUES(?, ?)", (accession, url))
+        cursor.execute("INSERT INTO Images VALUES(?, ?)", (accession, url))
 
 def selectProvenanceUnknown(cursor):
         cursor.execute("SELECT *  FROM Images;")

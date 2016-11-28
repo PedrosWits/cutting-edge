@@ -4,7 +4,7 @@ import sys
 import os
 
 def createTableImageUrls(cursor, urls):
-    cursor.execute("CREATE TABLE Images (id INTEGER PRIMARY KEY, accession text, url text")    
+    cursor.execute("CREATE TABLE Images (id INTEGER PRIMARY KEY, accession text, url text)")    
     for url in urls:
 	accession = url.split('-')[0]
         cursor.execute("INSERT INTO Artefacts VALUES(rowid, ?, ?)", (accession, url))

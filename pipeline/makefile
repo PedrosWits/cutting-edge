@@ -48,15 +48,9 @@ queryDB: buildDB $(QUERY_DATABASE_SRC)
 	$(info Querying the database)
 	@$(QUERY_DATABASE_EXE)
 
-# Parsing Apache links
-.PHONY: parseApache
-parseApache: $(PARSE_APACHE_SRC)
-	$(info Parsing Apache image links)
-	@$(PARSE_APACHE_EXE)
-
 # Pipeline
 .PHONY: pipeline
-pipeline: queryDB parseApache $(UPDATE_DATABASE_SRC)
+pipeline: queryDB $(UPDATE_DATABASE_SRC)
 	$(info Updating the Database)
 	@$(UPDATE_DATABASE_EXE)
 	$(info ***************************)

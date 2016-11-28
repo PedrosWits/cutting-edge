@@ -32,7 +32,7 @@ def main(dbfile):
     # Get artefact image urls
     urls = parseApache.getUrlOfArtefactImages()
     # Create table for image urls
-    createTableImageUrls(cursor)
+    createTableImageUrls(cursor, urls)
     # Run query and write result to disk
     writeToFile(getUrls(cursor), "URLs.txt")
 

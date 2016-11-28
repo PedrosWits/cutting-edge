@@ -1,5 +1,7 @@
 import parseApache
 import sqlite3
+import sys
+import os
 
 def createTableImageUrls(cursor, urls):
     cursor.execute("CREATE TABLE Images (id INTEGER PRIMARY KEY, accession text, url text")    

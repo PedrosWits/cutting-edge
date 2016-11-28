@@ -9,7 +9,7 @@ def createTableImageUrls(cursor, urls):
 	accession = url.split('-')[0]
         cursor.execute("INSERT INTO Images VALUES(?, ?)", (accession, url))
 
-def selectProvenanceUnknown(cursor):
+def getUrls(cursor):
         cursor.execute("SELECT *  FROM Images;")
         results = cursor.fetchall()
         return results;
